@@ -15,7 +15,7 @@ namespace UltimateFrisbeeTournamentScheduler
 			=> options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=TournamentScheduling;");
 	}
 
-	public class Tournament
+	public partial class Tournament
 	{
 		public int TournamentId { get; set; }
 		public string Name { get; set; }
@@ -23,14 +23,14 @@ namespace UltimateFrisbeeTournamentScheduler
 		public List<Match> Matches { get; set; } = new List<Match>();
 	}
 
-	public class Team
+	public partial class Team
 	{
 		public int TeamId { get; set; }
 		public string Name { get; set; }
 		public Tournament Tournament { get; set; }
 	}
 
-	public class Match
+	public partial class Match
 	{
 		public int MatchId { get; set; }
 		public Team Team1 { get; set; }

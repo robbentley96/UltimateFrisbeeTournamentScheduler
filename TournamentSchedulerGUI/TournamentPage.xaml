@@ -1,0 +1,46 @@
+﻿<Page x:Class="TournamentSchedulerGUI.TournamentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TournamentSchedulerGUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TournamentPage">
+
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="20"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="20"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="10"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="10"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="6*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="6*"/>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="10"/>
+		</Grid.RowDefinitions>
+		<TextBox x:Name="TeamInput" Grid.Column="1" Grid.Row="1"/>
+		<Button x:Name="AddTeamButton" Grid.Column="2" Grid.Row="1" Content="Add Team" Click="AddTeamButton_Click"/>
+		<Button x:Name="RemoveTeamButton" Grid.Column="2" Grid.Row="2" Content="Remove Team" Click="RemoveTeamButton_Click"/>
+		<Button x:Name="UpdateTeamButton" Grid.Column="2" Grid.Row="3" Content="Update Team" Click="UpdateTeamButton_Click"/>
+		<ListBox x:Name="TeamList" Grid.Column="1" Grid.Row="2" Grid.RowSpan="5" SelectionChanged="TeamList_SelectionChanged"/>
+		<TextBlock x:Name="TournamentName" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="8" FontSize="36" Margin="0,0,0,10"/>
+		<Button x:Name="SchedulePoolGamesButton" Grid.Column="1" Grid.Row="7" Content="Schedule Pool Games" Click="SchedulePoolGamesButton_Click"/>
+	</Grid>
+</Page>

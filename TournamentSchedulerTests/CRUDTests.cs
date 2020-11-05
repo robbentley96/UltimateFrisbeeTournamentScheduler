@@ -174,7 +174,7 @@ namespace TournamentSchedulerTests
 			int id;
 			using (var db = new TournamentContext())
 			{
-				Tournament newTournament = new Tournament() { Name = "ExampleTournament456" };
+				Tournament newTournament = new Tournament() { Name = "ExampleTournament123" };
 				Team newTeam = new Team() { Name = "ExampleTeam456", Tournament = newTournament };
 				db.Tournaments.Add(newTournament);
 				db.Teams.Add(newTeam);
@@ -192,5 +192,61 @@ namespace TournamentSchedulerTests
 		}
 
 
+		[Test]
+		public void InvalidTournamentRemoved_NoExceptionIsThrownTest()
+		{
+			_tournamentMethods.RemoveTournament(-1);
+		}
+
+		[Test]
+		public void InvalidTeamRemoved_NoExceptionIsThrownTest()
+		{
+			_tournamentMethods.RemoveTeam(-1);
+		}
+
+
+		[Test]
+		public void WhenTournamentNameIsChangedToEmpty_TheDatabaseDoesNotUpdateTest()
+		{
+			int id;
+			using (var db = new TournamentContext())
+			{
+				Tournament newTournament = new Tournament() { Name = "ExampleTournament123" };
+				db.Tournaments.Add(newTournament);
+				db.SaveChanges();
+				id = newTournament.TournamentId;
+			}
+
+			_tournamentMethods.UpdateTournamentName(id, "");
+			using (var db = new TournamentContext())
+			{
+				Tournament selectedTournament = db.Tournaments.Where(t => t.TournamentId == id).FirstOrDefault();
+				Assert.AreEqual(selectedTournament.Name, "ExampleTournament123");
+			}
+
+		}
+
+		[Test]
+		public void WhenTeamNameIsChangedToEmptyString_TheDatabaseDoesNotUpdateTest()
+		{
+			int id;
+			using (var db = new TournamentContext())
+			{
+				Tournament newTournament = new Tournament() { Name = "ExampleTournament123" };
+				Team newTeam = new Team() { Name = "ExampleTeam123", Tournament = newTournament };
+				db.Tournaments.Add(newTournament);
+				db.Teams.Add(newTeam);
+				db.SaveChanges();
+				id = newTeam.TeamId;
+			}
+
+			_tournamentMethods.UpdateTeamName(id, "");
+			using (var db = new TournamentContext())
+			{
+				Team selectedTeam = db.Teams.Where(t => t.TeamId == id).FirstOrDefault();
+				Assert.AreEqual(selectedTeam.Name, "ExampleTeam123");
+			}
+
+		}
 	}
 }

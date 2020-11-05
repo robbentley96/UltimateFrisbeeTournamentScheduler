@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +50,15 @@ namespace UltimateFrisbeeTournamentScheduler
 			}
 		}
 
+		public Tournament RetrieveTournament(int tournamentId)
+		{
+			using (var db = new TournamentContext())
+			{
+				Tournament selectedTournament = db.Tournaments.Where(t => t.TournamentId == tournamentId).FirstOrDefault();
+				return selectedTournament;
+			}
+		}
+
 		public void AddTeam(int tournamentId, string name)
 		{
 			if (name != "")
@@ -62,7 +72,6 @@ namespace UltimateFrisbeeTournamentScheduler
 						db.Teams.Add(newTeam);
 						db.SaveChanges();
 					}
-					
 				}
 			}
 		}
@@ -94,7 +103,7 @@ namespace UltimateFrisbeeTournamentScheduler
 			using (var db = new TournamentContext())
 			{
 				Tournament selectedTournament = db.Tournaments.Where(t => t.TournamentId == tournamentId).FirstOrDefault();
-				if (selectedTournament != null)
+				if (selectedTournament != null && newName != "")
 				{
 					selectedTournament.Name = newName;
 					db.SaveChanges();
@@ -107,12 +116,16 @@ namespace UltimateFrisbeeTournamentScheduler
 			using (var db = new TournamentContext())
 			{
 				Team selectedTeam = db.Teams.Where(t => t.TeamId == teamId).FirstOrDefault();
-				if (selectedTeam != null)
+				if (selectedTeam != null && newName != "")
 				{
 					selectedTeam.Name = newName;
 					db.SaveChanges();
 				}
 			}
 		}
+
+
+
+
 	}
 }
