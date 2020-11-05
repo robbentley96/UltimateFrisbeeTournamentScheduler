@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateFrisbeeTournamentScheduler", "UltimateFrisbeeTournamentScheduler\UltimateFrisbeeTournamentScheduler.csproj", "{D8F39281-356E-4B3A-ACA0-0B16794229A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentSchedulerTests", "TournamentSchedulerTests\TournamentSchedulerTests.csproj", "{BCFC1FB6-9063-477C-85D3-BE6333C7AE97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentSchedulerTests", "TournamentSchedulerTests\TournamentSchedulerTests.csproj", "{BCFC1FB6-9063-477C-85D3-BE6333C7AE97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

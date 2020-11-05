@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="UltimateFrisbeeTournamentScheduler.TournamentContext">
+    <Position X="1" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAACAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>TournamentContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UltimateFrisbeeTournamentScheduler.Tournament">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAACAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TournamentContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Teams" />
+      <Property Name="Matches" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="UltimateFrisbeeTournamentScheduler.Team">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAQCAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TournamentContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UltimateFrisbeeTournamentScheduler.Match">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAQQA=</HashCode>
+      <FileName>TournamentContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
