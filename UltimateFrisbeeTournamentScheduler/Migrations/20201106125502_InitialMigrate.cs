@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UltimateFrisbeeTournamentScheduler.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,11 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                 columns: table => new
                 {
                     TournamentId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    BreakLength = table.Column<int>(nullable: false),
+                    MatchLength = table.Column<int>(nullable: false),
+                    Phase = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,6 +30,8 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                     TeamId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Seed = table.Column<int>(nullable: false),
+                    Pool = table.Column<int>(nullable: false),
                     TournamentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -45,10 +51,10 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                 {
                     MatchId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TournamentId = table.Column<int>(nullable: true),
                     Team1TeamId = table.Column<int>(nullable: true),
                     Team2TeamId = table.Column<int>(nullable: true),
-                    Time = table.Column<DateTime>(nullable: false),
-                    TournamentId = table.Column<int>(nullable: true)
+                    Time = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

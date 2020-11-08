@@ -54,10 +54,13 @@ C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentSche
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.g.resources
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.AssemblyInfoInputs.cache
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.AssemblyInfo.cs
-C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.csproj.CoreCompileInputs.cache
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.csproj.CopyComplete
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.dll
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.pdb
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.genruntimeconfig.cache
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\MainPage.g.cs
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\MainPage.baml
+C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\TournamentSchedulerGUI.csproj.CoreCompileInputs.cache
+C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\PoolsWindow.g.cs
+C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\obj\Debug\netcoreapp3.1\PoolsWindow.baml

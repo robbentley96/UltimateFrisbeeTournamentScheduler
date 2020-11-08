@@ -10,8 +10,8 @@ using UltimateFrisbeeTournamentScheduler;
 namespace UltimateFrisbeeTournamentScheduler.Migrations
 {
     [DbContext(typeof(TournamentContext))]
-    [Migration("20201104140705_NamingTournaments")]
-    partial class NamingTournaments
+    [Migration("20201108120213_AddedPoolFunctionality")]
+    partial class AddedPoolFunctionality
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,23 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                     b.ToTable("Matches");
                 });
 
+            modelBuilder.Entity("UltimateFrisbeeTournamentScheduler.Pool", b =>
+                {
+                    b.Property<int>("PoolId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PoolId");
+
+                    b.HasIndex("TournamentId");
+
+                    b.ToTable("Pools");
+                });
+
             modelBuilder.Entity("UltimateFrisbeeTournamentScheduler.Team", b =>
                 {
                     b.Property<int>("TeamId")
@@ -61,10 +78,18 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PoolId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Seed")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TournamentId")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
+
+                    b.HasIndex("PoolId");
 
                     b.HasIndex("TournamentId");
 
@@ -78,7 +103,16 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BreakLength")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchLength")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phase")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TournamentId");
@@ -96,14 +130,25 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                         .WithMany()
                         .HasForeignKey("Team2TeamId");
 
-                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", null)
+                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", "Tournament")
                         .WithMany("Matches")
+                        .HasForeignKey("TournamentId");
+                });
+
+            modelBuilder.Entity("UltimateFrisbeeTournamentScheduler.Pool", b =>
+                {
+                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", "Tournament")
+                        .WithMany()
                         .HasForeignKey("TournamentId");
                 });
 
             modelBuilder.Entity("UltimateFrisbeeTournamentScheduler.Team", b =>
                 {
-                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", null)
+                    b.HasOne("UltimateFrisbeeTournamentScheduler.Pool", "Pool")
+                        .WithMany("Teams")
+                        .HasForeignKey("PoolId");
+
+                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", "Tournament")
                         .WithMany("Teams")
                         .HasForeignKey("TournamentId");
                 });

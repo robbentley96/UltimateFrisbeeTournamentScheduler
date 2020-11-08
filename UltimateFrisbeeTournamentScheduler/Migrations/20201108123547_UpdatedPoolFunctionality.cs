@@ -2,7 +2,7 @@
 
 namespace UltimateFrisbeeTournamentScheduler.Migrations
 {
-    public partial class TeamsToBeAllocatedToTournaments : Migration
+    public partial class UpdatedPoolFunctionality : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

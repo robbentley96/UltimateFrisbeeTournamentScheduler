@@ -10,6 +10,9 @@
     <Compile Update="MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="PoolsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="TournamentPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +22,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PoolsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TournamentPage.xaml">

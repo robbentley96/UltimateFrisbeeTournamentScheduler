@@ -15,11 +15,19 @@ namespace TournamentSchedulerTests
 		{
 			using (var db = new TournamentContext())
 			{
-				var exampleTeams = db.Teams.Include(t => t.Tournament).Where(t => t.Name == "ExampleTeam123" && t.Tournament.Name == "ExampleTournament123");
-				db.Teams.RemoveRange(exampleTeams);
-				var exampleTournaments = db.Tournaments.Where(t => t.Name == "ExampleTournament123");
-				db.Tournaments.RemoveRange(exampleTournaments);
-				db.SaveChanges();
+				var exampleTournament = db.Tournaments.Where(t => t.Name == "ExampleTournament123").FirstOrDefault();
+				var exampleTeams = db.Teams.Include(t => t.Tournament).Where(t => t.Tournament.Name == "ExampleTournament123");
+				if (exampleTournament != null)
+				{
+					int tournamentId = exampleTournament.TournamentId;
+					var examplePools = db.Pools.Include(t => t.Tournament).Where(p => p.Tournament.TournamentId == tournamentId);
+					db.RemoveRange(exampleTeams);
+					db.RemoveRange(examplePools);
+					db.RemoveRange(exampleTournament);
+					db.SaveChanges();
+				}
+				
+				
 			}
 		}
 
@@ -28,11 +36,19 @@ namespace TournamentSchedulerTests
 		{
 			using (var db = new TournamentContext())
 			{
-				var exampleTeams = db.Teams.Include(t => t.Tournament).Where(t => t.Name == "ExampleTeam123" && t.Tournament.Name == "ExampleTournament123");
-				db.RemoveRange(exampleTeams);
-				var exampleTournaments = db.Tournaments.Where(t => t.Name == "ExampleTournament123");
-				db.RemoveRange(exampleTournaments);
-				db.SaveChanges();
+				var exampleTournament = db.Tournaments.Where(t => t.Name == "ExampleTournament123").FirstOrDefault();
+				var exampleTeams = db.Teams.Include(t => t.Tournament).Where(t => t.Tournament.Name == "ExampleTournament123");
+				if (exampleTournament != null)
+				{
+					int tournamentId = exampleTournament.TournamentId;
+					var examplePools = db.Pools.Include(t => t.Tournament).Where(p => p.Tournament.TournamentId == tournamentId);
+					db.RemoveRange(exampleTeams);
+					db.RemoveRange(examplePools);
+					db.RemoveRange(exampleTournament);
+					db.SaveChanges();
+				}
+
+
 			}
 		}
 

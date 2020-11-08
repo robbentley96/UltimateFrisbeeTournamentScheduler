@@ -131,8 +131,9 @@ C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentSche
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.csprojAssemblyReference.cache
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.AssemblyInfoInputs.cache
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.AssemblyInfo.cs
-C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.csproj.CoreCompileInputs.cache
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.csproj.CopyComplete
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.dll
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.pdb
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.genruntimeconfig.cache
+C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerTests\obj\Debug\netcoreapp3.1\TournamentSchedulerTests.csproj.CoreCompileInputs.cache

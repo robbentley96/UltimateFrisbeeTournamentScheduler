@@ -8,7 +8,7 @@ namespace UltimateFrisbeeTournamentScheduler
 	{
 		public override string ToString()
 		{
-			return Name;
+			return $"{Seed}) {Name}";
 		}
 	}
 }

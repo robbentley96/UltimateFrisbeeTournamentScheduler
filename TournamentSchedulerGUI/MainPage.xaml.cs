@@ -41,6 +41,7 @@ namespace TournamentSchedulerGUI
 			{
 				_tournamentMethods.RemoveTournament(selectedTournament.TournamentId);
 				TournamentList.ItemsSource = _tournamentMethods.RetrieveTournaments();
+				TournamentInput.Text = "";
 			}
 			
 			

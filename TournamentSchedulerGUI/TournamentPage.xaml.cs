@@ -65,7 +65,7 @@ namespace TournamentSchedulerGUI
 			if (TeamList.SelectedItem != null)
 			{
 				Team selectedTeam = (Team)TeamList.SelectedItem;
-				TeamInput.Text = selectedTeam.ToString();
+				TeamInput.Text = selectedTeam.Name;
 			}
 			
 
@@ -73,9 +73,53 @@ namespace TournamentSchedulerGUI
 
 		private void SchedulePoolGamesButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			_tournamentMethods.PopulatePools(selectedTournament.TournamentId);
+			PoolsWindow pw = new PoolsWindow(selectedTournament.TournamentId);
+			pw.Show();
 		}
 
-		
+		private void GainSeedButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (TeamList.SelectedItem != null)
+			{
+				Team selectedTeam = (Team)TeamList.SelectedItem;
+				int selectedIndex = TeamList.SelectedIndex;
+				_tournamentMethods.GainSeed(selectedTeam.TeamId);
+				TeamList.ItemsSource = _tournamentMethods.RetrieveTeams(selectedTournament.TournamentId);
+				TeamList.UpdateLayout();
+				if (selectedIndex != 0)
+				{
+					ListBoxItem lbi = (ListBoxItem)TeamList.ItemContainerGenerator.ContainerFromIndex(selectedIndex - 1);
+					lbi.IsSelected = true;
+				}
+				else
+				{
+					ListBoxItem lbi = (ListBoxItem)TeamList.ItemContainerGenerator.ContainerFromIndex(selectedIndex);
+					lbi.IsSelected = true;
+				}
+			}
+		}
+
+		private void DropSeedButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (TeamList.SelectedItem != null)
+			{
+				Team selectedTeam = (Team)TeamList.SelectedItem;
+				int selectedIndex = TeamList.SelectedIndex;
+				_tournamentMethods.DropSeed(selectedTeam.TeamId);
+				TeamList.ItemsSource = _tournamentMethods.RetrieveTeams(selectedTournament.TournamentId);
+				TeamList.UpdateLayout();
+				if (selectedIndex != _tournamentMethods.RetrieveTeams(selectedTournament.TournamentId).Count - 1)
+				{
+					ListBoxItem lbi = (ListBoxItem)TeamList.ItemContainerGenerator.ContainerFromIndex(selectedIndex + 1);
+					lbi.IsSelected = true;
+				}
+				else
+				{
+					ListBoxItem lbi = (ListBoxItem)TeamList.ItemContainerGenerator.ContainerFromIndex(selectedIndex);
+					lbi.IsSelected = true;
+				}
+			}
+		}
 	}
 }

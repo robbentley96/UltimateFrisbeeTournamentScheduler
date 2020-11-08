@@ -1,5 +1,5 @@
 ﻿TournamentSchedulerGUI
-
+1.0.0.0
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 C:\Users\rober\OneDrive\Documents\Sparta\CSharpSQL\UltimateFrisbeeTournamentScheduler\TournamentSchedulerGUI\App.xaml
 41472680565
 
-6-704916612
+8-606757040
 2181612885822
 MainPage.xaml;MainWindow.xaml;PoolsWindow.xaml;TournamentPage.xaml;
 
-False
+True
 

@@ -10,8 +10,8 @@ using UltimateFrisbeeTournamentScheduler;
 namespace UltimateFrisbeeTournamentScheduler.Migrations
 {
     [DbContext(typeof(TournamentContext))]
-    [Migration("20201104142146_TeamsToBeAllocatedToTournaments")]
-    partial class TeamsToBeAllocatedToTournaments
+    [Migration("20201106125502_InitialMigrate")]
+    partial class InitialMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,6 +61,12 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Pool")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Seed")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TournamentId")
                         .HasColumnType("int");
 
@@ -78,7 +84,16 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BreakLength")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchLength")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phase")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TournamentId");
@@ -96,7 +111,7 @@ namespace UltimateFrisbeeTournamentScheduler.Migrations
                         .WithMany()
                         .HasForeignKey("Team2TeamId");
 
-                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", null)
+                    b.HasOne("UltimateFrisbeeTournamentScheduler.Tournament", "Tournament")
                         .WithMany("Matches")
                         .HasForeignKey("TournamentId");
                 });
