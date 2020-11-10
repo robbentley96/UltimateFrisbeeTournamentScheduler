@@ -28,6 +28,8 @@ namespace TournamentSchedulerGUI
 			selectedTournament = _tournamentMethods.RetrieveTournament(id);
 			TournamentName.Text = selectedTournament.ToString();
 			TeamList.ItemsSource = _tournamentMethods.RetrieveTeams(selectedTournament.TournamentId);
+			ViewDay1Button.Visibility = Visibility.Hidden;
+			ViewDay2Button.Visibility = Visibility.Hidden;
 		}
 		private void AddTeamButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -73,9 +75,30 @@ namespace TournamentSchedulerGUI
 
 		private void SchedulePoolGamesButton_Click(object sender, RoutedEventArgs e)
 		{
-			_tournamentMethods.PopulatePools(selectedTournament.TournamentId);
-			PoolsWindow pw = new PoolsWindow(selectedTournament.TournamentId);
-			pw.Show();
+			if (_tournamentMethods.RetrieveTeams(selectedTournament.TournamentId).Count == 16)
+			{
+				_tournamentMethods.SchedulePoolMatches(selectedTournament.TournamentId);
+				Pitch1List.ItemsSource = _tournamentMethods.RetrieveMatches(selectedTournament.TournamentId, 1);
+				Pitch2List.ItemsSource = _tournamentMethods.RetrieveMatches(selectedTournament.TournamentId, 2);
+				Pitch1List.Visibility = Visibility.Visible;
+				Pitch2List.Visibility = Visibility.Visible;
+				TitlePitch1.Visibility = Visibility.Visible;
+				TitlePitch2.Visibility = Visibility.Visible;
+				AddTeamButton.Visibility = Visibility.Hidden;
+				UpdateTeamButton.Visibility = Visibility.Hidden;
+				RemoveTeamButton.Visibility = Visibility.Hidden;
+				GainSeedButton.Visibility = Visibility.Hidden;
+				DropSeedButton.Visibility = Visibility.Hidden;
+				ViewDay2Button.Visibility = Visibility.Visible;
+				PoolsWindow pw = new PoolsWindow(selectedTournament.TournamentId);
+				pw.Top = Application.Current.MainWindow.Top + 100;
+				pw.Left = Application.Current.MainWindow.Left + 100;
+				pw.Show();
+			}
+			else
+			{
+				MessageBox.Show("You must have 16 teams to schedule a tournament.");
+			}
 		}
 
 		private void GainSeedButton_Click(object sender, RoutedEventArgs e)
@@ -120,6 +143,27 @@ namespace TournamentSchedulerGUI
 					lbi.IsSelected = true;
 				}
 			}
+		}
+
+		private void HomeButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.NavigationService.Navigate(new MainPage());
+		}
+
+		private void ViewDay2Button_Click(object sender, RoutedEventArgs e)
+		{
+			ViewDay2Button.Visibility = Visibility.Hidden;
+			ViewDay1Button.Visibility = Visibility.Visible;
+			Pitch1List.ItemsSource = _tournamentMethods.ListSeedMatches(1);
+			Pitch2List.ItemsSource = _tournamentMethods.ListSeedMatches(2);
+		}
+
+		private void ViewDay1Button_Click(object sender, RoutedEventArgs e)
+		{
+			ViewDay1Button.Visibility = Visibility.Hidden;
+			ViewDay2Button.Visibility = Visibility.Visible;
+			Pitch1List.ItemsSource = _tournamentMethods.RetrieveMatches(selectedTournament.TournamentId, 1);
+			Pitch2List.ItemsSource = _tournamentMethods.RetrieveMatches(selectedTournament.TournamentId, 2);
 		}
 	}
 }

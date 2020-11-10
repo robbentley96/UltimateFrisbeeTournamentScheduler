@@ -22,7 +22,7 @@ namespace UltimateFrisbeeTournamentScheduler
 		public string Name { get; set; }
 		public int BreakLength { get; set; }
 		public int MatchLength { get; set; }
-		public string Phase { get; set; }
+		public DateTime StartingTime { get; set; }
 		public List<Team> Teams { get; set; } = new List<Team>();
 		public List<Match> Matches { get; set; } = new List<Match>();
 		public List<Pool> Pools { get; set; } = new List<Pool>();
@@ -44,6 +44,7 @@ namespace UltimateFrisbeeTournamentScheduler
 		public Team Team1 { get; set; }
 		public Team Team2 { get; set; }
 		public DateTime Time { get; set; }
+		public int PitchNumber { get; set; }
 	}
 
 	public partial class Pool

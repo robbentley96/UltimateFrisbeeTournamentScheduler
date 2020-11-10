@@ -1,36 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="UltimateFrisbeeTournamentScheduler.TournamentContext">
-    <Position X="1" Y="1" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAACAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <HashCode>ABAACAAAAQAABAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>TournamentContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UltimateFrisbeeTournamentScheduler.Tournament">
     <Position X="3.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAACAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>TournamentContext.cs</FileName>
+      <HashCode>ABAACAAAAAAABAAGAAAAAAQAAAAEAAAAAAAAAAAAFAA=</HashCode>
+      <FileName>Class Customisations\Tournament.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Teams" />
       <Property Name="Matches" />
+      <Property Name="Pools" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="UltimateFrisbeeTournamentScheduler.Team">
-    <Position X="6" Y="1" Width="1.5" />
+    <Position X="6.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAAAAAAAAAAAQCAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>TournamentContext.cs</FileName>
+      <HashCode>AgAAAAAAAAAAAAAEAEAAAAQCAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class Customisations\Team.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UltimateFrisbeeTournamentScheduler.Match">
-    <Position X="3.5" Y="3.25" Width="1.5" />
+    <Position X="3.5" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAQQA=</HashCode>
+      <HashCode>AgAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAQQA=</HashCode>
       <FileName>TournamentContext.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="UltimateFrisbeeTournamentScheduler.Pool">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAACAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TournamentContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Teams" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

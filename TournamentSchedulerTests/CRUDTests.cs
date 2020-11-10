@@ -2,6 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using Microsoft.EntityFrameworkCore;
 using UltimateFrisbeeTournamentScheduler;
+using System;
 
 namespace TournamentSchedulerTests
 {
@@ -21,7 +22,9 @@ namespace TournamentSchedulerTests
 				{
 					int tournamentId = exampleTournament.TournamentId;
 					var examplePools = db.Pools.Include(t => t.Tournament).Where(p => p.Tournament.TournamentId == tournamentId);
+					var exampleMatches = db.Matches.Include(t => t.Tournament).Where(m => m.Tournament.TournamentId == tournamentId);
 					db.RemoveRange(exampleTeams);
+					db.RemoveRange(exampleMatches);
 					db.RemoveRange(examplePools);
 					db.RemoveRange(exampleTournament);
 					db.SaveChanges();
@@ -42,7 +45,9 @@ namespace TournamentSchedulerTests
 				{
 					int tournamentId = exampleTournament.TournamentId;
 					var examplePools = db.Pools.Include(t => t.Tournament).Where(p => p.Tournament.TournamentId == tournamentId);
+					var exampleMatches = db.Matches.Include(t => t.Tournament).Where(m => m.Tournament.TournamentId == tournamentId);
 					db.RemoveRange(exampleTeams);
+					db.RemoveRange(exampleMatches);
 					db.RemoveRange(examplePools);
 					db.RemoveRange(exampleTournament);
 					db.SaveChanges();
@@ -263,6 +268,53 @@ namespace TournamentSchedulerTests
 				Assert.AreEqual(selectedTeam.Name, "ExampleTeam123");
 			}
 
+		}
+
+		[Test]
+		public void WhenMatchIsAdded_DetailsAreCorrectTest()
+		{
+			using (var db = new TournamentContext())
+			{
+				Tournament newTournament = new Tournament() { Name = "ExampleTournament123" };
+				Team team1 = new Team() { Name = "ExampleTeam123" };
+				Team team2 = new Team() { Name = "ExampleTeam456" };
+				db.Tournaments.Add(newTournament);
+				db.Teams.Add(team1);
+				db.Teams.Add(team2);
+				db.SaveChanges();
+				_tournamentMethods.AddMatch(newTournament.TournamentId,team1.TeamId,team2.TeamId,1, new DateTime(2020,5,1,8,30,0));
+				Match selectedMatch = db.Matches.Include(m => m.Tournament).Where(m => m.Tournament.TournamentId == newTournament.TournamentId).OrderByDescending(m => m.MatchId).First();
+				Assert.AreEqual(selectedMatch.Team1.Name, "ExampleTeam123");
+				Assert.AreEqual(selectedMatch.Team2.Name, "ExampleTeam456");
+				Assert.AreEqual(selectedMatch.PitchNumber, 1);
+				Assert.AreEqual(selectedMatch.Time.ToString("HH:mm"), "08:30");
+			}
+		}
+
+		[Test]
+		public void WhenMatchIsRemoved_ItIsNoLongerInTheDatabase()
+		{
+			int matchId;
+			using (var db = new TournamentContext())
+			{
+				Tournament newTournament = new Tournament() { Name = "ExampleTournament123" };
+				Team team1 = new Team() { Name = "ExampleTeam123" };
+				Team team2 = new Team() { Name = "ExampleTeam456" };
+				Match exampleMatch = new Match(){ Team1 = team1, Team2 = team2, Tournament = newTournament};
+				db.Tournaments.Add(newTournament);
+				db.Teams.Add(team1);
+				db.Teams.Add(team2);
+				db.Matches.Add(exampleMatch);
+				db.SaveChanges();
+				matchId = exampleMatch.MatchId;
+				
+			}
+			_tournamentMethods.RemoveMatch(matchId);
+			using (var db = new TournamentContext())
+			{
+				Match selectedMatch = db.Matches.Include(m => m.Team1).Where(m => m.Team1.Name == "ExampleTeam123").FirstOrDefault();
+				Assert.AreEqual(selectedMatch, null);
+			}
 		}
 	}
 }

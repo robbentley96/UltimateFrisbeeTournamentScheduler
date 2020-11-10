@@ -11,14 +11,12 @@
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="10"/>
-			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="3*"/>
 			<ColumnDefinition Width="2*"/>
 			<ColumnDefinition Width="10"/>
-			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="5*"/>
+			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="5*"/>
 			<ColumnDefinition Width="10"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
@@ -28,7 +26,10 @@
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="*"/>
-			<RowDefinition Height="4*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="6*"/>
 			<RowDefinition Height="2*"/>
@@ -40,9 +41,19 @@
 		<Button x:Name="UpdateTeamButton" Grid.Column="2" Grid.Row="3" Content="Update Team" Click="UpdateTeamButton_Click"/>
 		<Button x:Name="GainSeedButton" Grid.Column="2" Grid.Row="4" Content="+ Seed" Click="GainSeedButton_Click"/>
 		<Button x:Name="DropSeedButton" Grid.Column="2" Grid.Row="5" Content="- Seed" Click="DropSeedButton_Click"/>
-
-		<ListBox x:Name="TeamList" Grid.Column="1" Grid.Row="2" Grid.RowSpan="7" SelectionChanged="TeamList_SelectionChanged"/>
+		<Button x:Name="HomeButton" Grid.Column="2" Grid.Row="12" Content="Home" Click="HomeButton_Click"/>
+		<ListBox x:Name="TeamList" Grid.Column="1" Grid.Row="2" Grid.RowSpan="10" SelectionChanged="TeamList_SelectionChanged"/>
 		<TextBlock x:Name="TournamentName" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="2" FontSize="36" Margin="0"/>
-		<Button x:Name="SchedulePoolGamesButton" Grid.Column="1" Grid.Row="9" Content="Schedule Pool Games" Click="SchedulePoolGamesButton_Click"/>
+		<Button x:Name="SchedulePoolGamesButton" Grid.Column="1" Grid.Row="12" Content="Schedule Pool Games" Click="SchedulePoolGamesButton_Click"/>
+
+		<TextBlock x:Name="TitlePitch1" Text="Pitch 1" Grid.Column="4" Grid.Row="4" FontSize="18" HorizontalAlignment="Center" Visibility="Hidden"/>
+		<TextBlock x:Name="TitlePitch2" Text="Pitch 2" Grid.Column="6" Grid.Row="4" FontSize="18" HorizontalAlignment="Center" Visibility="Hidden"/>
+
+		<ListBox x:Name="Pitch1List" Grid.Column="4" Grid.Row="5" Grid.RowSpan="8" Visibility="Hidden"/>
+		<ListBox x:Name="Pitch2List" Grid.Column="6" Grid.Row="5" Grid.RowSpan="8" Visibility="Hidden"/>
+
+		<Button x:Name="ViewDay1Button" Grid.Column="6" Grid.Row="3" Content="View Day 1" Click="ViewDay1Button_Click"/>
+		<Button x:Name="ViewDay2Button" Grid.Column="6" Grid.Row="3" Content ="View Day 2" Click="ViewDay2Button_Click"/>
+
 	</Grid>
 </Page>

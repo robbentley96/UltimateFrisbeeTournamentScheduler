@@ -4,20 +4,21 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace UltimateFrisbeeTournamentScheduler
 {
 	public class TournamentMethods
 	{
 		//CRUD
-		
+
 		public void AddTournament(string name)
 		{
 			if (name != "")
 			{
 				using (var db = new TournamentContext())
 				{
-					Tournament newTournament = new Tournament() { Name = name };
+					Tournament newTournament = new Tournament() { Name = name, StartingTime = new DateTime(2020, 11, 09, 09, 00, 00), MatchLength = 22, BreakLength = 3 };
 					db.Tournaments.Add(newTournament);
 					db.SaveChanges();
 				}
@@ -26,7 +27,7 @@ namespace UltimateFrisbeeTournamentScheduler
 				{
 					tournamentId = db.Tournaments.OrderByDescending(t => t.TournamentId).First().TournamentId;
 				}
-					
+
 				AddPools(tournamentId);
 			}
 		}
@@ -42,7 +43,17 @@ namespace UltimateFrisbeeTournamentScheduler
 			{
 				List<Team> teamsToRemove = RetrieveTeams(selectedTournament.TournamentId);
 				List<Pool> poolsToRemove = RetrievePools(selectedTournament.TournamentId);
+				List<Match> matchesToRemove1 = RetrieveMatches(selectedTournament.TournamentId, 1);
+				List<Match> matchesToRemove2 = RetrieveMatches(selectedTournament.TournamentId, 2);
 
+				foreach (Match match in matchesToRemove1)
+				{
+					RemoveMatch(match.MatchId);
+				}
+				foreach (Match match in matchesToRemove2)
+				{
+					RemoveMatch(match.MatchId);
+				}
 				foreach (Team team in teamsToRemove)
 				{
 					RemoveTeam(team.TeamId);
@@ -51,15 +62,15 @@ namespace UltimateFrisbeeTournamentScheduler
 				{
 					RemovePool(pool.PoolId);
 				}
-			
-			
+
+
 				using (var db = new TournamentContext())
 				{
 					db.Tournaments.Remove(selectedTournament);
 					db.SaveChanges();
 				}
 			}
-			
+
 		}
 
 		public List<Tournament> RetrieveTournaments()
@@ -100,13 +111,46 @@ namespace UltimateFrisbeeTournamentScheduler
 
 		public void RemoveTeam(int teamId)
 		{
+			int tournamentId;
+			int teamSeed;
+			Team selectedTeam;
 			using (var db = new TournamentContext())
 			{
-				Team selectedTeam = db.Teams.Where(t => t.TeamId == teamId).FirstOrDefault();
-				if (selectedTeam != null)
+				selectedTeam = db.Teams.Include(t => t.Tournament).Where(t => t.TeamId == teamId).FirstOrDefault();
+			}
+			if (selectedTeam != null)
+			{
+				List<Match> matchesToRemove1 = RetrieveMatches(selectedTeam.Tournament.TournamentId, 1);
+				List<Match> matchesToRemove2 = RetrieveMatches(selectedTeam.Tournament.TournamentId, 2);
+				foreach (Match match in matchesToRemove1)
 				{
+					RemoveMatch(match.MatchId);
+				}
+				foreach (Match match in matchesToRemove2)
+				{
+					RemoveMatch(match.MatchId);
+				}
+
+				using (var db = new TournamentContext())
+				{
+					tournamentId = selectedTeam.Tournament.TournamentId;
+					teamSeed = selectedTeam.Seed;
 					db.Teams.Remove(selectedTeam);
 					db.SaveChanges();
+				}
+
+				List<Team> remainingTeams = RetrieveTeams(tournamentId);
+				foreach (Team team in remainingTeams)
+				{
+					if (team.Seed > teamSeed)
+					{
+						using (var db = new TournamentContext())
+						{
+							Team teamToChange = db.Teams.Where(t => t.TeamId == team.TeamId).FirstOrDefault();
+							teamToChange.Seed--;
+							db.SaveChanges();
+						}
+					}
 				}
 			}
 		}
@@ -148,7 +192,7 @@ namespace UltimateFrisbeeTournamentScheduler
 
 		public void AddPools(int tournamentId)
 		{
-			
+
 			using (var db = new TournamentContext())
 			{
 				Tournament selectedTournament = db.Tournaments.Where(t => t.TournamentId == tournamentId).FirstOrDefault();
@@ -184,6 +228,41 @@ namespace UltimateFrisbeeTournamentScheduler
 				return allPools;
 			}
 		}
+
+		public void AddMatch(int tournamentId, int teamId1, int teamId2, int pitchNum, DateTime time)
+		{
+			using (var db = new TournamentContext())
+			{
+				Team team1 = db.Teams.Where(t => t.TeamId == teamId1).FirstOrDefault();
+				Team team2 = db.Teams.Where(t => t.TeamId == teamId2).FirstOrDefault();
+				Tournament selectedTournament = db.Tournaments.Where(t => t.TournamentId == tournamentId).FirstOrDefault();
+				Match matchToAdd = new Match() { Tournament = selectedTournament, Team1 = team1, Team2 = team2, PitchNumber = pitchNum, Time = time };
+				db.Matches.Add(matchToAdd);
+				db.SaveChanges();
+			}
+		}
+
+		public void RemoveMatch(int matchId)
+		{
+			using (var db = new TournamentContext())
+			{
+				Match selectedMatch = db.Matches.Where(m => m.MatchId == matchId).FirstOrDefault();
+				db.Remove(selectedMatch);
+				db.SaveChanges();
+			}
+		}
+
+		public List<Match> RetrieveMatches(int tournamentId, int pitchNum)
+		{
+			using (var db = new TournamentContext())
+			{
+				List<Match> allMatches = db.Matches.Include(m => m.Tournament).Include(m => m.Team1).Include(m => m.Team2).Where(m => m.Tournament.TournamentId == tournamentId && m.PitchNumber == pitchNum).OrderBy(m => m.Time).ToList();
+				return allMatches;
+			}
+		}
+
+
+
 
 		//SEEDING
 
@@ -241,7 +320,6 @@ namespace UltimateFrisbeeTournamentScheduler
 					}
 				}
 			}
-			
 		}
 
 		public List<Team>[] RetrievePoolTeams(int tournamentId)
@@ -250,20 +328,94 @@ namespace UltimateFrisbeeTournamentScheduler
 			using (var db = new TournamentContext())
 			{
 				int pool1Id = allPools[0].PoolId;
-				List<Team> pool1 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool1Id).ToList();
+				List<Team> pool1 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool1Id).OrderBy(t => t.Seed).ToList();
 				int pool2Id = allPools[1].PoolId;
-				List<Team> pool2 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool2Id).ToList();
+				List<Team> pool2 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool2Id).OrderBy(t => t.Seed).ToList();
 				int pool3Id = allPools[2].PoolId;
-				List<Team> pool3 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool3Id).ToList();
+				List<Team> pool3 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool3Id).OrderBy(t => t.Seed).ToList();
 				int pool4Id = allPools[3].PoolId;
-				List<Team> pool4 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool4Id).ToList();
+				List<Team> pool4 = db.Teams.Include(t => t.Pool).Where(t => t.Pool.PoolId == pool4Id).OrderBy(t => t.Seed).ToList();
 				return new List<Team>[4] { pool1, pool2, pool3, pool4 };
 			}
 		}
 
+		//SCHEDULING
 
+		public void SchedulePoolMatches(int tournamentId)
+		{
+			PopulatePools(tournamentId);
+			if (RetrieveTeams(tournamentId).Count == 16)
+			{
+				using (var db = new TournamentContext())
+				{
+					var matchesToClear = db.Matches.Include(m => m.Tournament).Where(m => m.Tournament.TournamentId == tournamentId);
+					db.RemoveRange(matchesToClear);
+					db.SaveChanges();
+				}
+				List<Team>[] poolTeams = RetrievePoolTeams(tournamentId);
+				TimeSpan gameTime = new TimeSpan(0, 22, 0);
+				TimeSpan breakTime = new TimeSpan(0, 3, 0);
+				TimeSpan totalTime = gameTime + breakTime;
+				DateTime startTime = new DateTime(2020, 05, 01, 09, 00, 00);
+				for (int i = 0; i < poolTeams.Count(); i++)
+				{
+					DateTime matchTime = startTime + i * totalTime;
+					AddMatch(tournamentId, poolTeams[i][0].TeamId, poolTeams[i][1].TeamId, 1, matchTime);
+					AddMatch(tournamentId, poolTeams[i][2].TeamId, poolTeams[i][3].TeamId, 2, matchTime);
+					matchTime += 4 * totalTime;
+					AddMatch(tournamentId, poolTeams[i][0].TeamId, poolTeams[i][2].TeamId, 1, matchTime);
+					AddMatch(tournamentId, poolTeams[i][1].TeamId, poolTeams[i][3].TeamId, 2, matchTime);
+					matchTime += 4 * totalTime;
+					AddMatch(tournamentId, poolTeams[i][0].TeamId, poolTeams[i][3].TeamId, 1, matchTime);
+					AddMatch(tournamentId, poolTeams[i][1].TeamId, poolTeams[i][2].TeamId, 2, matchTime);
+				}
+			}
 
-
-
+		}
+		public List<string> ListSeedMatches(int pitchNum)
+		{
+			List<string> seededMatches;
+			if (pitchNum == 1)
+			{
+				seededMatches = new List<string>()
+			{
+				"6 v 11 - 09:00",
+				"8 v 9 - 09:25",
+				"11 v 14 - 09:50",
+				"12 v 13 - 10:15",
+				"4 v 5 - 10:40",
+				"3 v 6 - 11:05",
+				"14 v 15 - 11:30",
+				"10 v 11 - 11:55",
+				"6 v 7 - 12:20",
+				"2 v 3 - 12:45",
+				"12 v 14 - 13:10",
+				"9 v 10 - 13:35",
+				"5 v 6 - 14:00",
+				"3 v 4 - 14:25"
+			};
+			}
+			else
+			{
+				seededMatches = new List<string>()
+			{
+				"7 v 10 - 09:00",
+				"5 v 12 - 09:25",
+				"10 v 15 - 09:50",
+				"9 v 16 - 10:15",
+				"1 v 8 - 10:40",
+				"2 v 7 - 11:05",
+				"13 v 16 - 11:30",
+				"9 v 12 - 11:55",
+				"5 v 8 - 12:20",
+				"1 v 4 - 12:45",
+				"15 v 16 - 13:10",
+				"11 v 12 - 13:35",
+				"7 v 8 - 14:00",
+				"1 v 2 - 14:25"
+			};
+			}
+			return seededMatches;
+		}
 	}
 }
